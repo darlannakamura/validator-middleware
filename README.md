@@ -1,8 +1,15 @@
 # Validator Middleware
+
+## Pré-requisitos
+
+Nossa biblioteca faz uso de uma outra biblioteca chamada [validator.js](https://github.com/validatorjs/validator.js) - para validação de strings.
+Para instalá-la, basta executar:
+
+	npm install validator
  
 ## O que é?
 
-É um módulo para validar os dados de entrada do cliente. Por exemplo, sempre que você recebe os dados no express da forma: `req.body.id`, torna-se difícil realmente acreditar que em `id` há uma ID inteiro positivo. Este módulo é para facilitar a sua vida e você conseguir garantir que há um inteiro positivo lá.
+É uma biblioteca para validar os dados de entrada do cliente. Por exemplo, sempre que você recebe os dados no express da forma: `req.body.id`, torna-se difícil realmente acreditar que em `id` há um ID inteiro positivo. Este módulo é para facilitar a sua vida e você conseguir garantir que há um inteiro positivo lá.
 
 Este módulo tem como objetivo fazer você deixar seu código para cuidar apenas da lógica de negócio, desconsiderando qualquer validação dos dados de entrada.
 
@@ -10,13 +17,13 @@ Nós recomendamos você usar essa biblioteca como uma camada de **middleware**.
 
 ## Como usar?
 
-Suponha que temos o seguinte cenário: precisamos criar um *endpoint* para cadastrar um novo usuário, com apenas nome e CPF. Com a ajuda do validator, essa tarefa será fácil. 
+Suponha que temos o seguinte cenário: precisamos criar um *endpoint* para cadastrar um novo usuário, com apenas nome e CPF. Com a ajuda do **validator**, essa tarefa será fácil. 
 
 Crie um arquivo com o nome `exemplo.validator.js`:
 ```javascript
 var validator = require('./validator-middleware/validator'); //importe a biblioteca
 
-exports.validatorMiddleware = async (req, res, next) => {
+exports.middleware = async (req, res, next) => {
 
 	try {
 
@@ -49,12 +56,12 @@ const  router  =  express.Router();
 const  controller  =  require('../controllers/exemplo.controller');
 const  validator  =  require('../validators/exemplo.validator');
 
-router.post('/', validator.validatorMiddleware, controller.add);
+router.post('/', validator.middleware, controller.add);
 
 module.exports  =  router;
 ```
  
-O validator middleware ajuda você a organizar o seu código, de forma a manter apenas a parte da lógica de negócio dentro do controller, sendo as validações de entrada tratado no middleware de validação.
+O **validator middleware** ajuda você a organizar o seu código, de forma a manter apenas a parte da lógica de negócio dentro do controller, sendo as validações de entrada tratado no middleware de validação.
 
 No `exemplo.controller.js`:
 
@@ -72,7 +79,29 @@ exports.add = async (req, res) => {
 
 ## Documentação
 
-	TODO
+A validação dos campos acontece através do método `validator.validate`:
+
+	validator.validate(req, especificacao);
+
+O parâmetro `especificacao` é a especficicação dos campos, como por exemplo, validar um `id`:
+```javascript
+...
+validator.validate(req, {
+	id: {
+		required: true,
+		type: 'id'
+	}
+});
+```
+
+Vamos chamar aqui cada "coisa" a ser validada nos campos de **propriedades**.
+Por exemplo, `required`, `type`, `length` são as propriedades atuais. Exemplo: na especificação dos campos, 
+
+Propriedade  		| Descrição
+------------------- | -------------------
+**required**		| Tipo: **booleano**. Tem como objetivo checar se o campo existe no `body` da requisição. Se não especificado, o *default* é false.
+**type**            | Tipo: **string**. Tem como objetivo validar se está recebendo o tipo e formato correto. Os tipos aceitos são: `alpha` (letras), `alphanumeric` (letras e números), `boolean`, `email`, `id` (inteiro positivo) ou `cpf` (formato 999.999.999-99).
+**length** 			| Tipo: **array**. Tem como objetivo validar se o tamanho da string recebida está de acordo com o especificado. O padrão é `[min,max]`, ou seja, validar sempre em relação ao mínimo e máximo permitido nos campos. 
 
 ## Rodando os Testes
 
