@@ -1,0 +1,33 @@
+{
+  "name": "validator-middleware",
+  "version": "0.0.0",
+  "description": "Validation Middleware",
+  "main": "bin/server.js",
+  "engines": {
+    "node": "10"
+  },
+  "scripts": {
+    "start": "node ./bin/server.js",
+    "test": "mocha --exit",
+    "lint": "eslint"
+  },
+  "keywords": [
+    "validator",
+    "middleware"
+  ],
+  "author": "Darlan Nakamura",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "helmet": "^3.21.2",
+    "install": "^0.13.0",
+    "npm": "^6.13.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.4.0",
+    "mocha": "^5.2.0"
+  }
+}
