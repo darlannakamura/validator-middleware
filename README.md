@@ -1,7 +1,7 @@
 # Validator Middleware
 
 
-[![Build Status](https://travis-ci.com/darlannakamura/validator-middleware.svg?branch=master)
+![Build Status](https://travis-ci.com/darlannakamura/validator-middleware.svg?branch=master)
 
 ## Pré-requisitos
 
