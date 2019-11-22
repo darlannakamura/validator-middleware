@@ -1,5 +1,8 @@
 # Validator Middleware
 
+
+[![Build Status](https://travis-ci.com/darlannakamura/validator-middleware.svg?branch=master)
+
 ## Pré-requisitos
 
 Nossa biblioteca faz uso de uma outra biblioteca chamada [validator.js](https://github.com/validatorjs/validator.js) - para validação de strings.
