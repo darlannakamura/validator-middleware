@@ -4,7 +4,7 @@ const chai = require('chai');
 
 const expect = chai.expect;
 const assert = chai.assert;
-var validator = require('../src/libs/validator');
+var validator = require('../validator');
 
 describe('_isObject', function(done) {
     it('Test if a null is not an object', function(done) {
