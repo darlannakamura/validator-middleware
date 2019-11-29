@@ -1,0 +1,12 @@
+{
+    "name": {
+        "required": true,
+        "type": "alphanumeric",
+        "length": [6, 100]
+    },
+    "cpf": {
+        "required": true,
+        "type": "cpf",
+        "length": [14, 14]
+    }
+}
